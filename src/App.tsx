@@ -10,7 +10,7 @@ import { Container } from "@mui/material";
 import reactLogo from "./assets/react.svg";
 import "react-chat-widget/lib/styles.css";
 
-const App: React.FC = () => {
+const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [widgetOpened, setWidgetOpened] = useState<boolean>(false);
 
@@ -81,4 +81,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default ChatWidget;

@@ -5,22 +5,18 @@ import {
   addUserMessage,
   toggleMsgLoader,
 } from "react-chat-widget";
-import "react-chat-widget/lib/styles.css";
 import { Container } from "@mui/material";
-import reactLogo from "./assets/react.svg";
 import "react-chat-widget/lib/styles.css";
+import "react-chat-widget/lib/styles.css";
+import reactLogo from "./assets/react.svg";
 
 const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [widgetOpened, setWidgetOpened] = useState<boolean>(false);
 
-  useEffect(() => {
-    addResponseMessage("Olá ,como poso ajudar?");
-  }, []);
-
   const handleNewUserMessage = async (newMessage: string) => {
     try {
-      toggleMsgLoader(); // Mostrar animação de carregamento
+      toggleMsgLoader();
       addUserMessage(newMessage);
 
       const bodyResponse = {
@@ -34,6 +30,7 @@ const ChatWidget: React.FC = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(bodyResponse),
       });
@@ -50,6 +47,10 @@ const ChatWidget: React.FC = () => {
       toggleMsgLoader();
     }
   };
+
+  useEffect(() => {
+    addResponseMessage("Olá ,como poso ajudar?");
+  }, []);
 
   useEffect(() => {
     if (messages.length > 0) {

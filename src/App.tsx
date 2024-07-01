@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Widget, addResponseMessage, addUserMessage } from "react-chat-widget";
+import {
+  Widget,
+  addResponseMessage,
+  addUserMessage,
+  toggleMsgLoader,
+} from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
 import { Container } from "@mui/material";
+import reactLogo from "./assets/react.svg";
 
 const App: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -21,6 +27,10 @@ const App: React.FC = () => {
 
     try {
       const API_URL = import.meta.env.VITE_API_URL;
+      console.log("API URL ===> ", API_URL);
+
+      toggleMsgLoader(); // Mostrar animação de carregamento
+
       const response = await fetch(`${API_URL}/legal-assistant`, {
         method: "POST",
         headers: {
@@ -38,6 +48,8 @@ const App: React.FC = () => {
       setMessages((prevMessages) => [...prevMessages, data]);
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      toggleMsgLoader();
     }
   };
 
@@ -51,15 +63,18 @@ const App: React.FC = () => {
 
   return (
     <Container
-      style={{ color: "black", cursor: "pointer" }}
+      style={{ color: "black" }}
       className="App"
       maxWidth="sm"
       onClick={handleClickWidgetContainer}
     >
       <Widget
         handleNewUserMessage={handleNewUserMessage}
-        title="My new awesome title"
-        subtitle="And my cool subtitle"
+        title="Brain Legal Assistant"
+        subtitle=""
+        profileAvatar={reactLogo}
+        senderPlaceHolder="tire sua dúvida..."
+        toggleMsgLoader
       />
     </Container>
   );

@@ -75,7 +75,7 @@ const App: React.FC = () => {
         subtitle=""
         profileAvatar={reactLogo}
         senderPlaceHolder="tire sua dúvida..."
-        toggleMsgLoader
+        emojis={true}
       />
     </Container>
   );

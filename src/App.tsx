@@ -8,28 +8,27 @@ import {
 import "react-chat-widget/lib/styles.css";
 import { Container } from "@mui/material";
 import reactLogo from "./assets/react.svg";
+import "react-chat-widget/lib/styles.css";
 
 const App: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [widgetOpened, setWidgetOpened] = useState<boolean>(false);
 
   useEffect(() => {
-    addResponseMessage("Welcome to this awesome chat!");
+    addResponseMessage("Olá ,como poso ajudar?");
   }, []);
 
   const handleNewUserMessage = async (newMessage: string) => {
-    addUserMessage(newMessage);
-
-    const bodyResponse = {
-      modelId: "modelo",
-      prompt: newMessage,
-    };
-
     try {
-      const API_URL = import.meta.env.VITE_API_URL;
-      console.log("API URL ===> ", API_URL);
-
       toggleMsgLoader(); // Mostrar animação de carregamento
+      addUserMessage(newMessage);
+
+      const bodyResponse = {
+        modelId: "modelo",
+        prompt: newMessage,
+      };
+
+      const API_URL = import.meta.env.VITE_API_URL;
 
       const response = await fetch(`${API_URL}/legal-assistant`, {
         method: "POST",
@@ -44,7 +43,6 @@ const App: React.FC = () => {
       }
 
       const data = await response.text();
-      console.log("data ===> ", data);
       setMessages((prevMessages) => [...prevMessages, data]);
     } catch (error) {
       console.error("Error:", error);
@@ -54,7 +52,10 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    messages.forEach((message) => addResponseMessage(message));
+    if (messages.length > 0) {
+      const latestMessage = messages[messages.length - 1];
+      addResponseMessage(latestMessage);
+    }
   }, [messages]);
 
   const handleClickWidgetContainer = () => {

@@ -6,7 +6,7 @@ import {
   toggleMsgLoader,
 } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
-import vercelLogo from "../public/vercel.svg"; // Altere o caminho conforme necessário
+import vercelLogo from "../public/vercel.svg";
 
 const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -75,12 +75,7 @@ const ChatWidget: React.FC = () => {
   };
 
   return (
-    <div
-      style={{ color: "black" }}
-      //   className="App"
-      //   maxWidth="sm"
-      onClick={handleClickWidgetContainer}
-    >
+    <div style={{ color: "black" }} onClick={handleClickWidgetContainer}>
       <Widget
         handleNewUserMessage={handleNewUserMessage}
         title="Brain Legal Assistant"

@@ -1,4 +1,3 @@
-// components/ChatWidget.tsx
 import React, { useEffect, useState } from "react";
 import {
   Widget,
@@ -7,7 +6,7 @@ import {
   toggleMsgLoader,
 } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
-import vercelLogo from "../public/vercel.svg";
+import reactLogo from "../public/react.svg"; // Altere o caminho conforme necessário
 
 const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -50,14 +49,14 @@ const ChatWidget: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!welcomeMessageSent) {
+    if (typeof window !== "undefined" && !welcomeMessageSent) {
       addResponseMessage("Olá, como posso ajudar?");
       setWelcomeMessageSent(true);
     }
   }, [welcomeMessageSent]);
 
   useEffect(() => {
-    if (messages.length > 0) {
+    if (typeof window !== "undefined" && messages.length > 0) {
       const latestMessage = messages[messages.length - 1];
       addResponseMessage(latestMessage);
     }
@@ -86,14 +85,14 @@ const ChatWidget: React.FC = () => {
         handleNewUserMessage={handleNewUserMessage}
         title="Brain Legal Assistant"
         subtitle=""
-        profileAvatar={vercelLogo.src}
+        profileAvatar={reactLogo.src}
         senderPlaceHolder={placeholder}
         emojis={false}
-        // inputProps={{
-        //   className: "input-left-caret",
-        //   onFocus: handleFocus,
-        //   onBlur: handleBlur,
-        // }}
+        inputProps={{
+          className: "input-left-caret",
+          onFocus: handleFocus,
+          onBlur: handleBlur,
+        }}
       />
     </div>
   );

@@ -7,11 +7,11 @@ import {
 } from "react-chat-widget";
 import { Container } from "@mui/material";
 import "react-chat-widget/lib/styles.css";
-import "react-chat-widget/lib/styles.css";
 import reactLogo from "./assets/react.svg";
 
 const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
+  const [welcomeMessageSent, setWelcomeMessageSent] = useState<boolean>(false);
   const [widgetOpened, setWidgetOpened] = useState<boolean>(false);
 
   const handleNewUserMessage = async (newMessage: string) => {
@@ -49,8 +49,11 @@ const ChatWidget: React.FC = () => {
   };
 
   useEffect(() => {
-    addResponseMessage("Olá ,como poso ajudar?");
-  }, []);
+    if (!welcomeMessageSent) {
+      addResponseMessage("Olá, como posso ajudar?");
+      setWelcomeMessageSent(true);
+    }
+  }, [welcomeMessageSent]);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -60,7 +63,7 @@ const ChatWidget: React.FC = () => {
   }, [messages]);
 
   const handleClickWidgetContainer = () => {
-    setWidgetOpened((prevOpened) => !prevOpened); // Alternar entre true e false
+    setWidgetOpened((prevOpened) => !prevOpened);
   };
 
   return (
@@ -75,8 +78,8 @@ const ChatWidget: React.FC = () => {
         title="Brain Legal Assistant"
         subtitle=""
         profileAvatar={reactLogo}
-        senderPlaceHolder="tire sua dúvida..."
-        emojis={true}
+        senderPlaceHolder="Digite sua mensagem..."
+        emojis={false}
       />
     </Container>
   );

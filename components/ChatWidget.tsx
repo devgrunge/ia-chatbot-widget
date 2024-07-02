@@ -6,7 +6,7 @@ import {
   toggleMsgLoader,
 } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
-import reactLogo from "../public/react.svg"; // Altere o caminho conforme necessário
+import vercelLogo from "../public/vercel.svg"; // Altere o caminho conforme necessário
 
 const ChatWidget: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -85,7 +85,7 @@ const ChatWidget: React.FC = () => {
         handleNewUserMessage={handleNewUserMessage}
         title="Brain Legal Assistant"
         subtitle=""
-        profileAvatar={reactLogo.src}
+        profileAvatar={vercelLogo.src}
         senderPlaceHolder={placeholder}
         emojis={false}
         inputProps={{
